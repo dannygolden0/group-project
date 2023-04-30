@@ -1,62 +1,103 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react'
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
-import { Camera } from 'expo-camera';
+import * as React from 'react';
+import { Text, TextInput, View, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import Constants from 'expo-constants';
+import TakePhotoButton from "./TakePhotoButton";
+import ChoosePhotoButton from './ChoosePhotoButton';
+import SharePhotoButton from './SharePhotoButton';
 
+const { width: screenWidth } = Dimensions.get("window");
+
+const memeTemplateImageUris = [
+  'https://i.imgflip.com/2/4t0m5.jpg',
+];
 
 export default function App() {
-  const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [camera, setCamera] = useState(null);
-  const [image, setImage] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [topText, setTopText] = React.useState("");
+  const [bottomText, setBottomText] = React.useState("");
 
-  useEffect(() => {
-    (async () => {
-      const cameraStatus = await Camera.requestCameraPermissionsAsync();
-      setHasCameraPermission(cameraStatus.status === 'granted');
-    })();
-  }, []);
+  const placeholderMeme = memeTemplateImageUris[0];
+  const [imgUri, setImgUri] = React.useState(placeholderMeme);
 
-const takePicture = async () => {
-  if (camera){
-    const data=await camera.takePictureAsync(null)
-    setImage(data.uri);
-  }
-}
-
-if (hasCameraPermission === false){
-  return <Text>No Camera Access</Text>
-}
+  const memeView = React.useRef();
 
   return (
-    <View style={{flex:1}}>
-      <View style ={styles.cameraContainer}>
-        <Camera ref={ref => setCamera(ref)}
-        style = {styles.fixedRatio}
-        type={type}
-        ratio={'1:1'}
-        />
-      </View>
-      <Button
-      title="Flip Camera"
-      onPress={() => {
-        setType(type === Camera.Constants.Type.back ? Camera.Constants.Type.front : Camera.Constants.Type.back);
-      }}></Button>
-      <Button title = "Take Picture"
-      onPress={() => takePicture()}
+    <View style={styles.container}>
+      <TextInput
+        style={styles.textInput}
+        onChangeText={(text) => setTopText(text)}
+        value={topText}
       />
-      {image && <Image source={{uri: image}} style = {{flex:1}} />}
+      <TextInput
+        style={styles.textInput}
+        onChangeText={(text) => setBottomText(text)}
+        value={bottomText}
+      />
+    
+    
+      <View collapsable={false} ref={memeView}></View>
+
+
+    <View>
+      <Image
+        source={{uri: imgUri}}
+        style={{height: screenWidth, width: screenWidth}}
+      />
+      <Text style={[styles.memeText, {top: 5}]}> {topText} </Text>
+      <Text style={[styles.memeText, {bottom: 5}]}> {bottomText} </Text>
+    </View>
+
+    <TakePhotoButton setImgUri={setImgUri} />
+    <ChoosePhotoButton setImgUri={setImgUri} />
+    <SharePhotoButton memeView={memeView} />
+
+    <View style={{ flexDirection: 'row' }}>
+      {memeTemplateImageUris.map((uri) => {
+        return (
+          <TouchableOpacity
+            key={uri}
+            onPress={() => {
+              setImgUri(uri);
+            }}>
+            <Image source={{ uri }} style={styles.templateImage} />
+          </TouchableOpacity>
+        );
+      })}
+    </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cameraContainer: {
-    flex: 1,
-    flexDirection:'row'
+  memeText: {
+    color: "white",
+    fontSize: 38,
+    fontWeight: "900",
+    textAlign: "center",
+    position: "absolute",
+    left: 5,
+    right: 5,
+    backgroundColor: "transparent",
+    textShadowColor: "black",
+    textShadowRadius: 5,
+    textShadowOffset: { height: 2, width: 2 },
   },
-  fixedRatio: {
-    flex:1,
-    aspectRatio:1
-  }
+  textInput: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: "gray",
+    width: screenWidth,
+  },
+  templateImage: {
+    height: 60,
+    width: 60,
+    marginHorizontal: 0,
+    marginVertical: 0,
+  },
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#ecf0f1",
+  },
 });
