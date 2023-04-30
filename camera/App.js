@@ -18,9 +18,9 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
-      const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+      // const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === 'granted');
-      setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
+      // setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
     })();
   }, []);
 
@@ -35,30 +35,30 @@ if (hasCameraPermission === false){
   return <Text>No Camera Access</Text>
 }
 
-if (photo) {
-  let sharePic =() => {
-    shareAsyc(photo.uri).then(() => {
-      setPhoto(undefinied);
-    });
-  };
+// if (photo) {
+//   let sharePic =() => {
+//     shareAsyc(photo.uri).then(() => {
+//       setPhoto(undefinied);
+//     });
+//   };
 
-let savePhoto = () => {
-  MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-    setPhoto(undefined);
-  });
-};
+// let savePhoto = () => {
+//   MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
+//     setPhoto(undefined);
+//   });
+// };
 
 }
 
-return (
-  <SafeAreaView style={styles.container}>
-    <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-    <Button title="Share" onPress={sharePic} />
-    {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
-    <Button title="Discard" onPress={() => setPhoto(undefined)} />
-  </SafeAreaView>
-);
-}
+// return (
+//   <SafeAreaView style={styles.container}>
+//     <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
+//     <Button title="Share" onPress={sharePic} />
+//     {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
+//     <Button title="Discard" onPress={() => setPhoto(undefined)} />
+//   </SafeAreaView>
+// );
+
 
   return (
     <View style={{flex:1}}>
