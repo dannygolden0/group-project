@@ -10,6 +10,8 @@ const { width: screenWidth } = Dimensions.get("window");
 const photoTemplateImageUris = [
   'https://www1.villanova.edu/content/university/student-life/family/visit/_jcr_content/pagecontent/image.img.jpg/1599835358128.jpg',
   'https://www.villanovau.com/wp-content/uploads/2018/11/VU_Header_Image_0000_About-Villanova-Page.jpg',
+  'https://www1.villanova.edu/content/villanova/president/about_office/biography/_jcr_content/widgetiparsys/image.img.jpg/1524681675197.jpg',
+  
 ];
 
 export default function App() {
