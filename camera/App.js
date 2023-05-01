@@ -7,21 +7,23 @@ import SharePhotoButton from './SharePhotoButton';
 
 const { width: screenWidth } = Dimensions.get("window");
 
-const memeTemplateImageUris = [
-  'https://i.imgflip.com/2/4t0m5.jpg',
+const photoTemplateImageUris = [
+  'https://www1.villanova.edu/content/university/student-life/family/visit/_jcr_content/pagecontent/image.img.jpg/1599835358128.jpg',
+  'https://www.villanovau.com/wp-content/uploads/2018/11/VU_Header_Image_0000_About-Villanova-Page.jpg',
 ];
 
 export default function App() {
-  const [topText, setTopText] = React.useState("");
-  const [bottomText, setBottomText] = React.useState("");
+  const [topText, setTopText] = React.useState("Edit top text");
+  const [bottomText, setBottomText] = React.useState("Edit bottom text");
 
-  const placeholderMeme = memeTemplateImageUris[0];
+  const placeholderMeme = photoTemplateImageUris[0];
   const [imgUri, setImgUri] = React.useState(placeholderMeme);
 
   const memeView = React.useRef();
 
   return (
     <View style={styles.container}>
+      <Text style={styles.titleText}>PHOTO EDITOR</Text>
       <TextInput
         style={styles.textInput}
         onChangeText={(text) => setTopText(text)}
@@ -42,8 +44,8 @@ export default function App() {
         source={{uri: imgUri}}
         style={{height: screenWidth, width: screenWidth}}
       />
-      <Text style={[styles.memeText, {top: 5}]}> {topText} </Text>
-      <Text style={[styles.memeText, {bottom: 5}]}> {bottomText} </Text>
+      <Text style={[styles.photoText, {top: 5}]}> {topText} </Text>
+      <Text style={[styles.photoText, {bottom: 5}]}> {bottomText} </Text>
     </View>
 
     <TakePhotoButton setImgUri={setImgUri} />
@@ -51,7 +53,7 @@ export default function App() {
     <SharePhotoButton memeView={memeView} />
 
     <View style={{ flexDirection: 'row' }}>
-      {memeTemplateImageUris.map((uri) => {
+      {photoTemplateImageUris.map((uri) => {
         return (
           <TouchableOpacity
             key={uri}
@@ -68,7 +70,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  memeText: {
+  photoText: {
     color: "white",
     fontSize: 38,
     fontWeight: "900",
@@ -100,4 +102,13 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: "#ecf0f1",
   },
+  titleText: {
+    height: 40,
+    fontWeight: 'bold',
+    fontSize: 30,
+    fontFamily: 'Cochin',
+    textAlign: 'center',
+
+    
+  }
 });

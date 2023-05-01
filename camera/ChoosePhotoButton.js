@@ -12,7 +12,7 @@ export default function ChoosePhotoButton({ setImgUri }) {
 }
 
 async function choosePhotoAsync(setImgUri) {
-  // Asking for Permissions is slow. In production, store these values in React State
+  
   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
   const isSuccessful = status === "granted";
   if (!isSuccessful) {

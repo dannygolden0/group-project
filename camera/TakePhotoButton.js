@@ -9,7 +9,7 @@ export default function TakePhotoButton({ setImgUri }) {
 }
 
 async function takePhotoAsync(setImgUri) {
-  // Asking for Permissions is slow. In production, store these values in React State
+  
   const { status } = await ImagePicker.requestCameraPermissionsAsync();
   const isSuccessful = status === "granted";
   if (!isSuccessful) {
@@ -19,7 +19,7 @@ async function takePhotoAsync(setImgUri) {
 
   const image = await ImagePicker.launchCameraAsync();
   if (!image.cancelled) {
-    // { cancelled: false, type: 'image', uri, width, height, exif, base64 }
+    
     setImgUri(image.uri);
   }
 }
