@@ -9,18 +9,23 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "buffer": "^5.4.3",
     "expo": "~48.0.11",
     "expo-camera": "~13.2.1",
+    "expo-gl": "~12.4.0",
     "expo-image-picker": "~14.1.1",
-    "expo-permissions": "~12.1.1",
+    "expo-media-library": "~15.2.3",
+    "expo-permissions": "~14.1.1",
     "expo-status-bar": "~1.4.4",
+    "expo-updates": "~0.16.4",
+    "gl-react": "^4.0.1",
+    "gl-react-expo": "^4.0.1",
     "react": "18.2.0",
-    "react-native": "0.71.6",
+    "react-native": "0.71.7",
+    "react-native-gl-image-filters": "^0.5.0",
     "react-native-image-picker": "^5.3.1",
     "react-native-share": "^8.2.2",
-    "react-native-view-shot": "3.5.0",
-    "expo-sharing": "~11.2.2",
-    "expo-media-library": "~15.2.3"
+    "react-native-view-shot": "3.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

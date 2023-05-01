@@ -19,7 +19,16 @@ export default function App() {
   const placeholderMeme = photoTemplateImageUris[0];
   const [imgUri, setImgUri] = React.useState(placeholderMeme);
 
-  const memeView = React.useRef();
+  const handleShare = async () => {
+    if (imgUri) {
+      try {
+        const result = await SharePhotoButton.shareAsync(imgUri);
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -34,10 +43,6 @@ export default function App() {
         onChangeText={(text) => setBottomText(text)}
         value={bottomText}
       />
-    
-    
-      <View collapsable={false} ref={memeView}></View>
-
 
     <View>
       <Image
@@ -50,7 +55,7 @@ export default function App() {
 
     <TakePhotoButton setImgUri={setImgUri} />
     <ChoosePhotoButton setImgUri={setImgUri} />
-    <SharePhotoButton memeView={memeView} />
+    {imgUri && <SharePhotoButton imgUri={imgUri}/>}
 
     <View style={{ flexDirection: 'row' }}>
       {photoTemplateImageUris.map((uri) => {
